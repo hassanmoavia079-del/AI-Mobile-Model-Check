@@ -270,7 +270,13 @@ def show_error(exc: Exception):
         st.error(message)
         st.info("Configure GEMINI_API_KEY in .streamlit/secrets.toml locally or in Streamlit Cloud Secrets.")
     elif "429" in lower or "rate" in lower or "quota" in lower:
-        st.error("Gemini API rate limit or quota was reached. Please wait and try again.")
+        st.error("Gemini API rate limit or quota was reached.")
+        st.info(
+            "This app uses Google Search grounding for phone-spec verification. "
+            "Gemini 2.5 Flash supports Search grounding on the Free Tier with a shared "
+            "limit of up to 500 grounded requests per day. If the limit has been reached, "
+            "wait for the quota to reset or check usage in Google AI Studio."
+        )
     elif "401" in lower or "403" in lower or "permission" in lower or "unauth" in lower:
         st.error("Gemini API authentication/permission failed. Check that your API key is valid and enabled.")
     elif "json" in lower:
@@ -376,6 +382,7 @@ with analysis_tab:
 with status_tab:
     st.header("API Status")
     st.write(f"Configured Gemini model: `{MODEL_NAME}`")
+    st.caption("Phone analysis uses Google Search grounding to verify current specifications.")
     key = get_api_key()
     if key:
         st.success("GEMINI_API_KEY is configured.")
