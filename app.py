@@ -12,7 +12,7 @@ except ImportError:
     types = None
 
 APP_TITLE = "📱 MobileSpec AI"
-MODEL_NAME = "gemini-3.6-flash"
+MODEL_NAME = "gemini-2.5-flash"
 MAX_IMAGE_BYTES = 20 * 1024 * 1024
 
 SPEC_FIELDS = [
